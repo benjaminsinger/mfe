@@ -16,7 +16,7 @@ const generateClassName = createGenerateClassName({
 export default () => {
   return (
     <div className='content'>
-      <StylesProvider>
+      <StylesProvider generateClassName={createGenerateClassName}>
         <Router>
           <Switch>
             <Route exact path='/pricing' component={Pricing} />
