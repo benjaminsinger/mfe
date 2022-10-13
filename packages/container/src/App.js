@@ -12,16 +12,8 @@ const generateClassName = createGenerateClassName({
 })
 
 export default () => {
-  const style = {
-    color: 'red',
-    fontFamily: 'system-ui',
-    padding: '1em',
-    textAlign: 'center',
-    backgroundColor: '#111',
-    margin: 0,
-  }
   return (
-    <StylesProvider generateClassName={createGenerateClassName}>
+    <StylesProvider generateClassName={generateClassName}>
       <BrowserRouter>
         <Header />
         <main id='main'>
