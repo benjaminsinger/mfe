@@ -61,13 +61,25 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const cards = [1, 2, 3, 4, 5, 6]
 
 export default function Album() {
   const classes = useStyles()
 
   return (
     <React.Fragment>
+      <p
+        style={{
+          color: '#bada55',
+          fontFamily: 'system-ui',
+          padding: '1em',
+          textAlign: 'center',
+          backgroundColor: '#111',
+          margin: 0,
+        }}
+      >
+        This is a component in the marketing micro-frontend
+      </p>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -124,7 +136,7 @@ export default function Album() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant='h5' component='h2'>
-                      Heading
+                      Card
                     </Typography>
                     <Typography>
                       This is a media card. You can use this section to describe
