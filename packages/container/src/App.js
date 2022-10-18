@@ -1,7 +1,8 @@
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import React, { lazy, Suspense, useState } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
-import MarketingApp from './components/MarketingApp'
+import Progress from './components/Progress'
+
 import {
   StylesProvider,
   createGenerateClassName,
@@ -11,13 +12,31 @@ const generateClassName = createGenerateClassName({
   productionPrefix: 'con-',
 })
 
+// import MarketingApp from './components/MarketingApp'
+// import AuthApp from './components/AuthApp'
+
+const MarketingLazy = lazy(() => import('./components/MarketingApp'))
+const AuthLazy = lazy(() => import('./components/AuthApp'))
+
 export default () => {
+  const [isSignedIn, setIsSignedIn] = useState(false)
+
   return (
     <StylesProvider generateClassName={generateClassName}>
       <BrowserRouter>
-        <Header />
+        <Header
+          onSignOut={() => setIsSignedIn(false)}
+          isSignedIn={isSignedIn}
+        />
         <main id='main'>
-          <MarketingApp />
+          <Suspense fallback={<Progress />}>
+            <Switch>
+              <Route path='/auth/'>
+                <AuthLazy onSignIn={() => setIsSignedIn(true)} />
+              </Route>
+              <Route path='/' component={MarketingLazy} />
+            </Switch>
+          </Suspense>
         </main>
       </BrowserRouter>
     </StylesProvider>

@@ -1,10 +1,10 @@
 // CONTAINER COMPONENT APP
-// INITS MARKETING SUB APP WITHIN CONTAINER
-import { mount } from 'marketing/MarketingApp'
+// INITS AUTH SUB APP WITHIN CONTAINER
+import { mount } from 'auth/AuthApp'
 import React, { useRef, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-export default () => {
+export default ({ onSignIn }) => {
   const ref = useRef(null)
   const history = useHistory() // browser history NOT memory history
 
@@ -19,15 +19,15 @@ export default () => {
         // get current pathname of page you're on
         const { pathname } = history.location
 
-        console.log('Container noticed navigation within MarketingApp')
+        console.log('Container noticed navigation within AuthApp')
         // if current path/page (pathname) is not the
         // same as next path/page (nextPathname) - push new pathname to history object
         if (pathname !== nextPathname) {
           history.push(nextPathname)
         }
       },
-    }) // onNavigate
-
+      onSignIn,
+    }) // mount
     // 2. sub app - listen for when parent (i.e. container) navigates
     // whenever navigation occurs -- history.listen will fire a callback
     history.listen(onParentNavigate)

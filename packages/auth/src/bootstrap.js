@@ -7,7 +7,7 @@ import App from './App'
 // startup code goes here
 // mount function to start up the app
 
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onSignIn, onNavigate, defaultHistory, initialPath }) => {
   // 1. create child app memory history context
 
   // if provided a defaultHistory( only isolation context ) use that,
@@ -26,13 +26,13 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   }
 
   // mount the Marketing child app
-  ReactDOM.render(<App history={history} />, el)
+  ReactDOM.render(<App onSignIn={onSignIn} history={history} />, el)
 
   return {
     // N.B. any time container changes URL we call this function
     // to pass to child app -- as in MarketingApp.js
     onParentNavigate({ pathname: nextPathname }) {
-      console.log('container changing url')
+      console.log('on parent navigate Auth nextPathname', nextPathname)
       const { pathname } = history.location
       if (pathname !== nextPathname) {
         history.push(nextPathname)
@@ -45,7 +45,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
 // call mount immediately
 
 if (process.env.NODE_ENV === 'development') {
-  const el = document.querySelector('#marketing-dev-root')
+  const el = document.querySelector('#auth-dev-root')
 
   if (el) {
     // N.B. no onNavigate settings object passed here
